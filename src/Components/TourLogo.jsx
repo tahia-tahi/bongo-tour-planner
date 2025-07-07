@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/tour-logo.png'
+import { Link } from 'react-router';
 
 const TourLogo = () => {
     return (
