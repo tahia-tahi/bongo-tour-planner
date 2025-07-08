@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from 'react-router';
 import GoogleSignIn from '../Components/GoogleSignIn';
 import { BsPass } from 'react-icons/bs';
+import { AuthContext } from '../Provider/AuthContext';
 
 const Login = () => {
 
 
+    const {signIn} = useContext(AuthContext)
 
     const [showPassword, setShowPassword] = useState(false)
     const { register, handleSubmit , formState:{errors}} = useForm()
@@ -16,7 +18,16 @@ const Login = () => {
 
     const onSubmit = data => {
         console.log(data);
+        signIn(data.email, data.password)
+        .then(result=>{
+            console.log(result.user);
+        })
+        .catch(error=>{
+            console.error(error)
+        })
     }
+    
+    
     return (
         <div>
 

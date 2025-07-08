@@ -1,11 +1,10 @@
 import React from 'react';
-import Navbar from '../Components/Navbar';
-import { Outlet } from 'react-router';
+import TourSection from '../Components/TourSection';
 
 const Home = () => {
     return (
         <div>
-            
+           <TourSection></TourSection> 
         </div>
     );
 };
