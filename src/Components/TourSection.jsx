@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const TourSection = () => {
   const [packages, setPackages] = useState([]);
   const [guides, setGuides] = useState([]);
+
+  
 
   // Load packages
   useEffect(() => {
@@ -39,7 +43,7 @@ const TourSection = () => {
                 <h3 className="text-xl font-semibold mt-3">{pkg.title}</h3>
                 <p className="text-sm text-gray-500">{pkg.type} · {pkg.days} Days</p>
                 <p className="text-lg text-green-600 font-bold">৳ {pkg.price}</p>
-                <button className="btn btn-primary mt-3 w-full">View Package</button>
+<Link to={`/packages/${pkg._id}`} className="btn btn-primary mt-3 w-full">View Package</Link>
               </div>
             ))}
           </div>
@@ -55,7 +59,7 @@ const TourSection = () => {
                 <p className="text-sm text-gray-500 text-center">{guide.specialty}</p>
                 <p className="text-sm text-center text-gray-400">{guide.location} · {guide.experience} yrs exp</p>
                 <p className="text-center mt-1">⭐ {guide.rating}</p>
-                <button className="btn btn-outline btn-secondary mt-3 w-full">View Details</button>
+<Link to={`/guides/${guide._id}`} className="btn btn-outline btn-secondary mt-3 w-full">View Details</Link>
               </div>
             ))}
           </div>

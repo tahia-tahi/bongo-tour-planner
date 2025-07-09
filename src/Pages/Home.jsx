@@ -4,6 +4,7 @@ import BannerSlider from '../Components/BannerSlider';
 import Overview from '../Components/Overview';
 import TouristStories from '../Components/TouristStories';
 import ReviewSlider from '../Components/ReviewSlider';
+import WhyChooseUs from '../Components/WhyChooseUs';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
            <TourSection></TourSection> 
            <TouristStories></TouristStories>
            <ReviewSlider></ReviewSlider>
+           <WhyChooseUs></WhyChooseUs>
          
         </div>
     );
