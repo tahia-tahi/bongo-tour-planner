@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/guides/:id',
-                element: <GuideDetails />, 
+                element: <GuideDetails />,
                 loader: ({ params }) =>
                     fetch(`http://localhost:3000/api/guides/${params.id}`)
             }

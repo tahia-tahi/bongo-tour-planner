@@ -27,7 +27,7 @@ const PackageDetails = () => {
 
           <h3 className="text-2xl font-semibold mb-3 text-secondary">Tour Plan</h3>
           <ul className="list-disc list-inside space-y-2">
-            {tourPlan.map((plan, index) => (
+            {tourPlan?.map((plan, index) => (
               <li key={index}>
                 <strong>Day {plan.day}:</strong> {plan.plan}
               </li>
@@ -71,7 +71,7 @@ const PackageDetails = () => {
       <div className="w-11/12 mx-auto py-10">
         <h3 className="text-xl font-semibold mb-4">Gallery</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {gallery.map((img, idx) => (
+          {gallery?.map((img, idx) => (
             <img
               key={idx}
               src={img}

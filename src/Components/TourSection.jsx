@@ -8,6 +8,7 @@ const TourSection = () => {
   const [guides, setGuides] = useState([]);
 
 
+  console.log();
 
   // Load packages
   useEffect(() => {
@@ -42,7 +43,7 @@ const TourSection = () => {
                 <h3 className="text-xl font-semibold mt-3">{pkg.title}</h3>
                 <p className="text-sm text-gray-500">{pkg.type} · {pkg.days} Days</p>
                 <p className="text-lg text-green-600 font-bold">৳ {pkg.price}</p>
-<Link to={`/packages/${pkg.detailsId}`} className="btn btn-primary mt-3 w-full">View Package</Link>
+<Link to={`/packages/${pkg._id}`} className="btn btn-primary mt-3 w-full">View Package</Link>
               </div>
             ))}
           </div>
