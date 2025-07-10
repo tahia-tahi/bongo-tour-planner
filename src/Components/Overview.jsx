@@ -1,5 +1,4 @@
 import React from 'react';
-import video from '../assets/overview.mp4'
 
 const Overview = () => {
   return (
@@ -8,14 +7,14 @@ const Overview = () => {
         
         {/* Video Preview */}
         <div className="rounded-lg overflow-hidden shadow-lg">
-          <video
-            src={video} // Replace with your own tourism-related video
+          {/* <video
+            src={video}
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover"
-          />
+          /> */}
         </div>
 
         {/* Overview Text */}

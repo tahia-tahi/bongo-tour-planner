@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router';
 
 const PackageDetails = () => {
   const packageData = useLoaderData();
+  console.log(packageData);
 
   const { title, gallery, longImage, description, tourPlan } = packageData;
 
