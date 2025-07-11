@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router'; 
+import { NavLink, useNavigate } from 'react-router'; 
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdArrowDropDown } from 'react-icons/md';
 import TourLogo from './TourLogo';
@@ -9,9 +9,13 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-const {user} = useContext(AuthContext)
+const {user, logOut} = useContext(AuthContext)
+const navigate = useNavigate()
 
   const handleLogout = () => {
+    logOut()
+    navigate('/')
+
     console.log('Logout clicked');
     // Your logout function here
   };
@@ -29,7 +33,7 @@ const {user} = useContext(AuthContext)
           <NavLink to="/" className="hover:text-secondary">Home</NavLink>
           <NavLink to="/about" className="hover:text-secondary">About Us</NavLink>
           <NavLink to="/community" className="hover:text-secondary">Community</NavLink>
-          <NavLink to="/trips" className="hover:text-secondary">Trips</NavLink>
+          <NavLink to="/allTrips" className="hover:text-secondary">Trips</NavLink>
 
           {/* Authenticated or not */}
           {!user ? (
@@ -56,6 +60,7 @@ const {user} = useContext(AuthContext)
                 <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-48 p-3 z-50">
                   <p className="font-semibold">{user.name}</p>
                   <p className="text-sm mb-2">{user.email}</p>
+                  
                   <hr />
                   <NavLink to="/dashboard" className="block mt-2 hover:text-primary">Dashboard</NavLink>
                   <NavLink to="/announcements" className="block mt-1 hover:text-primary">Offer Announcements</NavLink>

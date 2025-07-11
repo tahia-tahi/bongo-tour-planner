@@ -6,6 +6,8 @@ import Login from '../Pages/Login';
 import SignUp from '../Pages/SignUp';
 import PackageDetails from '../Pages/PackageDetails';
 import GuideDetails from '../Pages/GuideDetails';
+import AllTrips from '../Pages/AllTrips';
+import Community from '../Pages/Community';
 
 export const router = createBrowserRouter([
 
@@ -37,7 +39,7 @@ export const router = createBrowserRouter([
             {
                 path: '/packages/:id',
                 element: <PackageDetails></PackageDetails>,
-                loader: ({ params }) => fetch(`http://localhost:3000/api/details/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:3000/api/packages/${params.id}`)
 
             },
             {
@@ -45,6 +47,16 @@ export const router = createBrowserRouter([
                 element: <GuideDetails />,
                 loader: ({ params }) =>
                     fetch(`http://localhost:3000/api/guides/${params.id}`)
+            },
+            {
+                path: '/allTrips',
+                element: <AllTrips></AllTrips>,
+                loader: () => fetch('http://localhost:3000/api/packages')
+            },
+            {
+                path:'/community',
+                element:<Community></Community>,
+                loader:()=> fetch('http://localhost:3000/api/stories')
             }
         ]
     }
