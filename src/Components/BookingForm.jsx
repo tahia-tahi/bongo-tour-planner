@@ -4,9 +4,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, Controller } from 'react-hook-form';
 import { AuthContext } from '../Provider/AuthContext';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
-const BookingForm = ({ packageName, price, onSubmit }) => {
+const BookingForm = ({ packageName, price, }) => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [tourGuides, setTourGuides] = useState([]);
   const {
     register,
@@ -33,18 +36,56 @@ const BookingForm = ({ packageName, price, onSubmit }) => {
     setValue('touristImage', user?.photoURL || '');
   }, [packageName, price, user, setValue]);
 
-  const onFormSubmit = (data) => {
-    if (!data.tourDate || !data.selectedGuide) {
-      toast.error("Please select a tour date and guide.");
-      return;
-    }
 
-    onSubmit(data);
+const onFormSubmit = async (data) => {
+  if (!data.tourDate || !data.selectedGuide) {
+    toast.error("Please select a tour date and guide.");
+    return;
+  }
 
-    toast.success(`Booking confirmed! Pay ৳${data.price}`, {
-      duration: 4000,
-    });
+  const bookingData = {
+    ...data,
+    bookingTime: new Date().toISOString(),
+    tourDate: data.tourDate.toISOString(),
+    status: "pending",
   };
+
+  try {
+    const res = await fetch('http://localhost:3000/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookingData),
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      toast.custom((t) => (
+        <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+          <p className="text-lg font-semibold mb-2 text-green-600">Booking Created!</p>
+          <p className="mb-2">Total Amount: <span className="font-bold">৳{data.price}</span></p>
+          <button
+            className="btn btn-success btn-sm"
+            onClick={() => {
+              toast.dismiss(t.id);
+              navigate('/my-bookings');
+            }}
+          >
+            Confirm Booking
+          </button>
+        </div>
+      ), { duration: 10000 }); // toast lasts for 10s or until confirm
+    } else {
+      toast.error(result.message || 'Booking failed');
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong while booking.");
+  }
+};
+
+
+
 
   return (
     <div className="bg-white shadow p-6 rounded-lg border w-full mx-auto">

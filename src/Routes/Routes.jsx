@@ -8,6 +8,7 @@ import PackageDetails from '../Pages/PackageDetails';
 import GuideDetails from '../Pages/GuideDetails';
 import AllTrips from '../Pages/AllTrips';
 import Community from '../Pages/Community';
+import MyBookings from '../Pages/MyBookings';
 
 export const router = createBrowserRouter([
 
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
                 path:'/community',
                 element:<Community></Community>,
                 loader:()=> fetch('http://localhost:3000/api/stories')
+            },
+            {
+                path:'/my-bookings',
+                element:<MyBookings></MyBookings>
             }
         ]
     }
