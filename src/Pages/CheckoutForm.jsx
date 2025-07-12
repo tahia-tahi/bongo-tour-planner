@@ -38,6 +38,8 @@ const CheckoutForm = ({ booking, navigate }) => {
       payment_method: paymentMethod.id,
     });
 
+    console.log(clientSecret);
+
     if (confirmError) {
       toast.error(confirmError.message);
       return;
