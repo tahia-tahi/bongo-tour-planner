@@ -9,6 +9,12 @@ import GuideDetails from '../Pages/GuideDetails';
 import AllTrips from '../Pages/AllTrips';
 import Community from '../Pages/Community';
 import MyBookings from '../Pages/MyBookings';
+import PaymentPage from '../Pages/PaymentPage';
+import TouristDashboard from '../Layout/TouristDashboard';
+import ManageProfile from '../Pages/ManageProfile';
+import ManageStories from '../Pages/ManageStories';
+import AddStories from '../Pages/AddStories';
+import JoinAsTourGuide from '../Pages/JoinAsTourGuide';
 
 export const router = createBrowserRouter([
 
@@ -55,14 +61,44 @@ export const router = createBrowserRouter([
                 loader: () => fetch('http://localhost:3000/api/packages')
             },
             {
-                path:'/community',
-                element:<Community></Community>,
-                loader:()=> fetch('http://localhost:3000/api/stories')
+                path: '/community',
+                element: <Community></Community>,
+                loader: () => fetch('http://localhost:3000/api/stories')
+            },
+
+            {
+                path: '/payment/:bookingId',
+                element: <PaymentPage />,
+                loader: ({ params }) =>
+                    fetch(`http://localhost:3000/api/bookings/${params.bookingId}`),
             },
             {
-                path:'/my-bookings',
-                element:<MyBookings></MyBookings>
+                path: '/tourist-dashboard',
+                element: <TouristDashboard></TouristDashboard>,
+                children: [
+                    {
+                        path: '/tourist-dashboard/manage-profile',
+                        element: <ManageProfile></ManageProfile>
+                    },
+                    {
+                        path: '/tourist-dashboard/my-bookings',
+                        element: <MyBookings></MyBookings>,
+                    },
+                    {
+                        path: '/tourist-dashboard/manage-stories',
+                        element: <ManageStories></ManageStories>
+                    },
+                    {
+                        path: '/tourist-dashboard/add-stories',
+                        element: <AddStories></AddStories>
+                    },
+                    {
+                        path: '/tourist-dashboard/join-as-tourguide',
+                        element: <JoinAsTourGuide></JoinAsTourGuide>
+                    }
+                ]
             }
+
         ]
     }
 

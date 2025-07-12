@@ -62,7 +62,7 @@ const navigate = useNavigate()
                   <p className="text-sm mb-2">{user.email}</p>
                   
                   <hr />
-                  <NavLink to="/dashboard" className="block mt-2 hover:text-primary">Dashboard</NavLink>
+                  <NavLink to="/tourist-dashboard" className="block mt-2 hover:text-primary">Dashboard</NavLink>
                   <NavLink to="/announcements" className="block mt-1 hover:text-primary">Offer Announcements</NavLink>
                   <button onClick={handleLogout} className="mt-3 w-full text-left hover:text-red-600">Log Out</button>
                 </div>

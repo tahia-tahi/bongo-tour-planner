@@ -37,52 +37,52 @@ const BookingForm = ({ packageName, price, }) => {
   }, [packageName, price, user, setValue]);
 
 
-const onFormSubmit = async (data) => {
-  if (!data.tourDate || !data.selectedGuide) {
-    toast.error("Please select a tour date and guide.");
-    return;
-  }
-
-  const bookingData = {
-    ...data,
-    bookingTime: new Date().toISOString(),
-    tourDate: data.tourDate.toISOString(),
-    status: "pending",
-  };
-
-  try {
-    const res = await fetch('http://localhost:3000/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bookingData),
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      toast.custom((t) => (
-        <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
-          <p className="text-lg font-semibold mb-2 text-green-600">Booking Created!</p>
-          <p className="mb-2">Total Amount: <span className="font-bold">৳{data.price}</span></p>
-          <button
-            className="btn btn-success btn-sm"
-            onClick={() => {
-              toast.dismiss(t.id);
-              navigate('/my-bookings');
-            }}
-          >
-            Confirm Booking
-          </button>
-        </div>
-      ), { duration: 10000 }); // toast lasts for 10s or until confirm
-    } else {
-      toast.error(result.message || 'Booking failed');
+  const onFormSubmit = async (data) => {
+    if (!data.tourDate || !data.selectedGuide) {
+      toast.error("Please select a tour date and guide.");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong while booking.");
-  }
-};
+
+    const bookingData = {
+      ...data,
+      bookingTime: new Date().toISOString(),
+      tourDate: data.tourDate.toISOString(),
+      status: "pending",
+    };
+
+    try {
+      const res = await fetch('http://localhost:3000/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingData),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        toast.custom((t) => (
+          <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+            <p className="text-lg font-semibold mb-2 text-green-600">Booking Created!</p>
+            <p className="mb-2">Total Amount: <span className="font-bold">৳{data.price}</span></p>
+            <button
+              className="btn btn-success btn-sm"
+              onClick={() => {
+                toast.dismiss(t.id);
+                navigate('/my-bookings');
+              }}
+            >
+              Confirm Booking
+            </button>
+          </div>
+        ), { duration: 10000 }); // toast lasts for 10s or until confirm
+      } else {
+        toast.error(result.message || 'Booking failed');
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong while booking.");
+    }
+  };
 
 
 
@@ -95,7 +95,7 @@ const onFormSubmit = async (data) => {
         {/* Package Name */}
         <div>
           <label className="block text-sm font-medium text-gray-600">Package Name</label>
-          <input className="input input-bordered w-full" {...register('packageName')}  />
+          <input className="input input-bordered w-full" {...register('packageName')} />
         </div>
 
         {/* Tourist Name */}
@@ -124,7 +124,7 @@ const onFormSubmit = async (data) => {
         {/* Price */}
         <div>
           <label className="block text-sm font-medium text-gray-600">Price</label>
-          <input type="number" className="input input-bordered w-full" {...register('price')}  />
+          <input type="number" className="input input-bordered w-full" {...register('price')} />
         </div>
 
         {/* Tour Date (DatePicker + Controller) */}
