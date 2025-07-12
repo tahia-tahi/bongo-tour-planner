@@ -13,33 +13,46 @@ const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = data => {
-        createUser(data.email, data.password)
-            .then(result => {
-                return updateUser({
-                    displayName: data.name,
-                    photoURL: data.photo
-                });
-            })
-            .then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registered successfully!',
-                    text: `Welcome, ${data.name}!`,
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                navigate('/');
-            })
-            .catch(error => {
-                console.error("Sign-up failed:", error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Registration Failed',
-                    text: error.message
-                });
+const onSubmit = data => {
+    createUser(data.email, data.password)
+        .then(result => {
+            return updateUser({
+                displayName: data.name,
+                photoURL: data.photo
             });
-    };
+        })
+        .then(async () => {
+            // ✅ Save user to MongoDB with role
+            await fetch(`/api/users/${data.email}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    photo: data.photo,
+                    role: 'tourist' // or 'tour_guide' or 'admin' if applicable
+                })
+            });
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Registered successfully!',
+                text: `Welcome, ${data.name}!`,
+                timer: 2000,
+                showConfirmButton: false
+            });
+            navigate('/');
+        })
+        .catch(error => {
+            console.error("Sign-up failed:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Registration Failed',
+                text: error.message
+            });
+        });
+};
+
 
     return (
         <div>
