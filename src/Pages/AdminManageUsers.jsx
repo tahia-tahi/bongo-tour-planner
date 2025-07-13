@@ -16,19 +16,27 @@ const AdminManageUsers = () => {
   const [roleFilter, setRoleFilter] = useState(roleOptions[0]);
   const [searchText, setSearchText] = useState('');
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const usersPerPage = 10;
 
-  const fetchUsers = async (search = '', role = '') => {
+  // Fetch users with optional search & role filter
+  const fetchUsers = async (search = '', role = '', page = 1) => {
     setLoading(true);
     try {
       const res = await axios.get('/api/users', {
         params: {
           search,
-          role
+          role,
+          page,
+          limit: usersPerPage
         }
       });
-      setUsers(res.data);
+
+      setUsers(res.data.users);
+      setTotalUsers(res.data.total);
     } catch (err) {
-        console.log(err);
+      console.error(err);
       toast.error('Failed to load users');
     } finally {
       setLoading(false);
@@ -41,13 +49,22 @@ const AdminManageUsers = () => {
 
   const handleSearchChange = debounce((text) => {
     setSearchText(text);
-    fetchUsers(text, roleFilter.value);
+    setCurrentPage(1); // Reset to first page
+    fetchUsers(text, roleFilter.value, 1);
   }, 500);
 
   const handleRoleChange = (selectedOption) => {
     setRoleFilter(selectedOption);
-    fetchUsers(searchText, selectedOption.value);
+    setCurrentPage(1); // Reset to first page
+    fetchUsers(searchText, selectedOption.value, 1);
   };
+
+  const handlePageChange = (pageNum) => {
+    setCurrentPage(pageNum);
+    fetchUsers(searchText, roleFilter.value, pageNum);
+  };
+
+  const totalPages = Math.ceil(totalUsers / usersPerPage);
 
   return (
     <div className="p-6">
@@ -87,7 +104,7 @@ const AdminManageUsers = () => {
             <tbody>
               {users.map((user, idx) => (
                 <tr key={user._id}>
-                  <td>{idx + 1}</td>
+                  <td>{(currentPage - 1) * usersPerPage + idx + 1}</td>
                   <td>{user.name || 'N/A'}</td>
                   <td>{user.email}</td>
                   <td>
@@ -102,6 +119,23 @@ const AdminManageUsers = () => {
               ))}
             </tbody>
           </table>
+
+          {/* Pagination Footer */}
+          {totalPages > 1 && (
+            <div className="mt-4 flex justify-center gap-2">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => handlePageChange(i + 1)}
+                  className={`btn btn-sm ${
+                    currentPage === i + 1 ? 'btn-primary' : 'btn-outline'
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

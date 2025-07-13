@@ -19,6 +19,7 @@
     "firebase": "^11.10.0",
     "lodash.debounce": "^4.0.8",
     "react": "^19.1.0",
+    "react-confetti": "^6.4.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",

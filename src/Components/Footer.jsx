@@ -1,11 +1,13 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa';
-import TourLogo from './TourLogo'; // Reuse your logo component
+import { Link } from 'react-router-dom';
+import TourLogo from './TourLogo';
 
 const Footer = () => {
   return (
     <footer className="bg-base-200 text-base-content py-10 mt-10 border-t border-gray-300">
       <div className="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
         {/* Logo & Description */}
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -19,31 +21,73 @@ const Footer = () => {
 
         {/* Quick Links */}
         <div>
-          <h3 className="footer-title">Quick Links</h3>
-          <ul className="space-y-1">
-            <li><a href="/" className="link link-hover">Home</a></li>
-            <li><a href="/about" className="link link-hover">About Us</a></li>
-            <li><a href="/community" className="link link-hover">Community</a></li>
-            <li><a href="/trips" className="link link-hover">Trips</a></li>
+          <h3 className="footer-title font-semibold mb-2">Quick Links</h3>
+          <ul className="space-y-1 text-sm">
+            <li>
+              <Link to="/" className="link link-hover">Home</Link>
+            </li>
+            <li>
+              <Link to="/about" className="link link-hover">About Us</Link>
+            </li>
+            <li>
+              <Link to="/community" className="link link-hover">Community</Link>
+            </li>
+            <li>
+              <Link to="/trips" className="link link-hover">Trips</Link>
+            </li>
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
-          <h3 className="footer-title">Contact</h3>
-          <p>Email: contact@explorebd.com</p>
-          <p>Phone: +880 1234-567890</p>
-          <p>Location: Dhaka, Bangladesh</p>
+          <h3 className="footer-title font-semibold mb-2">Contact</h3>
+          <ul className="text-sm space-y-1">
+            <li>Email: <a href="mailto:contact@explorebd.com" className="link link-hover">contact@explorebd.com</a></li>
+            <li>Phone: <a href="tel:+8801234567890" className="link link-hover">+880 1234-567890</a></li>
+            <li>Location: Dhaka, Bangladesh</li>
+          </ul>
         </div>
 
         {/* Social Media */}
         <div>
-          <h3 className="footer-title">Follow Us</h3>
+          <h3 className="footer-title font-semibold mb-2">Follow Us</h3>
           <div className="flex gap-4 mt-2 text-xl">
-            <a href="https://facebook.com" className="hover:text-primary"><FaFacebookF /></a>
-            <a href="https://instagram.com" className="hover:text-primary"><FaInstagram /></a>
-            <a href="https://youtube.com" className="hover:text-primary"><FaYoutube /></a>
-            <a href="https://twitter.com" className="hover:text-primary"><FaTwitter /></a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="hover:text-primary"
+            >
+              <FaFacebookF />
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hover:text-primary"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="hover:text-primary"
+            >
+              <FaYoutube />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              className="hover:text-primary"
+            >
+              <FaTwitter />
+            </a>
           </div>
         </div>
       </div>
