@@ -15,6 +15,12 @@ import ManageProfile from '../Pages/ManageProfile';
 import ManageStories from '../Pages/ManageStories';
 import AddStories from '../Pages/AddStories';
 import JoinAsTourGuide from '../Pages/JoinAsTourGuide';
+import AdminDashboard from '../Layout/AdminDashboard';
+import AdminManageProfile from '../Pages/AdminManageProfile';
+import AdminAddStories from '../Pages/AdminAddStories';
+import AdminManageStories from '../Pages/AdminManageStories';
+import AdminAddPackage from '../Pages/AdminAddPackage';
+import AdminManageCandidates from '../Pages/AdminManageCandidates';
 
 export const router = createBrowserRouter([
 
@@ -96,6 +102,37 @@ export const router = createBrowserRouter([
                         path: '/tourist-dashboard/join-as-tourguide',
                         element: <JoinAsTourGuide></JoinAsTourGuide>
                     }
+                ]
+            },
+            {
+                path:'/admin-dashboard',
+                element:<AdminDashboard></AdminDashboard>,
+                children:[
+                    {
+                        path:'/admin-dashboard/admin-manage-profile',
+                        element:<AdminManageProfile></AdminManageProfile>
+                    },
+                   
+                    {
+                        path:'/admin-dashboard/admin-add-stories',
+                        element:<AdminAddStories></AdminAddStories>
+                    },
+                    {
+                        path:'/admin-dashboard/admin-manage-stories',
+                        element:<AdminManageStories></AdminManageStories>
+                    },
+                    {
+                        path:'/admin-dashboard/admin-add-package',
+                        element:<AdminAddPackage></AdminAddPackage>
+                    },
+                    {
+                        path:'/admin-dashboard/admin-manage-candidates',
+                        element:<AdminManageCandidates></AdminManageCandidates>
+                    },
+                    {
+                        path:'/admin-dashboard/admin-manage-profile',
+                        element:<AdminManageProfile></AdminManageProfile>
+                    },
                 ]
             }
 

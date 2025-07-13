@@ -68,7 +68,7 @@ const BookingForm = ({ packageName, price, }) => {
               className="btn btn-success btn-sm"
               onClick={() => {
                 toast.dismiss(t.id);
-                navigate('/my-bookings');
+                navigate('/tourist-dashboard/my-bookings');
               }}
             >
               Confirm Booking
