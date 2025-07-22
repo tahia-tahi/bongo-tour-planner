@@ -16,6 +16,7 @@ const SignUp = () => {
 const onSubmit = data => {
     createUser(data.email, data.password)
         .then(result => {
+            console.log(result);
             return updateUser({
                 displayName: data.name,
                 photoURL: data.photo
@@ -23,7 +24,7 @@ const onSubmit = data => {
         })
         .then(async () => {
             // ✅ Save user to MongoDB with role
-            await fetch(`/api/users/${data.email}`, {
+            await fetch(`http://localhost:3000/api/users/${data.email}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -121,7 +122,7 @@ const onSubmit = data => {
                         <GoogleSignIn />
 
                         <p className='mt-3'>
-                            Already have an account?{' '}
+                            Already have an account?
                             <Link className='text-primary font-semibold hover:text-secondary' to={'/auth/login'}>
                                 Log In
                             </Link>

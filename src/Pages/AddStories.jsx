@@ -1,4 +1,3 @@
-// ✅ AddStories.jsx
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
@@ -9,12 +8,14 @@ const AddStories = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
+  const [imageInput, setImageInput] = useState('');
   const [images, setImages] = useState([]);
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const urls = files.map(file => URL.createObjectURL(file));
-    setImages(prev => [...prev, ...urls]);
+  const handleAddImageUrl = () => {
+    if (imageInput.trim()) {
+      setImages(prev => [...prev, imageInput.trim()]);
+      setImageInput('');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -67,18 +68,29 @@ const AddStories = () => {
           rows={5}
           required
         ></textarea>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageUpload}
-        />
+
+        {/* Image URL input */}
+        <div className="flex gap-2">
+          <input
+            className="input input-bordered w-full"
+            type="url"
+            placeholder="Paste Image URL"
+            value={imageInput}
+            onChange={(e) => setImageInput(e.target.value)}
+          />
+          <button type="button" className="btn btn-outline" onClick={handleAddImageUrl}>
+            Add
+          </button>
+        </div>
+
+        {/* Preview URLs */}
         <div className="flex gap-2 flex-wrap">
           {images.map((img, idx) => (
-            <img key={idx} src={img} alt="Preview" className="w-24 h-24 object-cover rounded" />
+            <img key={idx} src={img} alt="Story" className="w-24 h-24 object-cover rounded" />
           ))}
         </div>
-        <button type="submit" className="btn btn-primary">Submit Story</button>
+
+        <button type="submit" className="btn btn-primary w-full">Submit Story</button>
       </form>
     </div>
   );

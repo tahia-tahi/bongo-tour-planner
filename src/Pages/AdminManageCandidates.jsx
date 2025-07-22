@@ -8,10 +8,10 @@ const AdminManageCandidates = () => {
 
   const fetchCandidates = async () => {
     try {
-      const res = await axios.get('/api/guide-applications');
+      const res = await axios.get('http://localhost:3000/api/guide-applications');
       setCandidates(res.data);
     } catch (err) {
-        console.log(err);
+      console.log(err);
       toast.error('Failed to fetch applications');
     } finally {
       setLoading(false);
@@ -20,7 +20,7 @@ const AdminManageCandidates = () => {
 
   const handleAccept = async (email) => {
     try {
-      await axios.patch(`/api/guide-applications/accept/${email}`);
+      await axios.patch(`http://localhost:3000/api/guide-applications/accept/${email}`);
       toast.success('User promoted to Tour Guide');
       fetchCandidates();
     } catch {
@@ -33,7 +33,7 @@ const AdminManageCandidates = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`/api/guide-applications/reject/${email}`);
+      await axios.patch(`http://localhost:3000/api/guide-applications/reject/${email}`);
       toast.success('Application rejected');
       fetchCandidates();
     } catch {
@@ -62,6 +62,7 @@ const AdminManageCandidates = () => {
               <th>Title</th>
               <th>Reason</th>
               <th>CV Link</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -69,18 +70,44 @@ const AdminManageCandidates = () => {
             {candidates.map((app, idx) => (
               <tr key={app._id}>
                 <td>{idx + 1}</td>
-                <td>{app.name || 'N/A'}</td>
+                <td>{app.name}</td>
                 <td>{app.email}</td>
                 <td>{app.title}</td>
                 <td className="max-w-sm overflow-hidden text-ellipsis">{app.reason}</td>
                 <td>
-                  <a href={app.cvLink} className="link text-blue-600 underline" target="_blank" rel="noreferrer">
+                  <a
+                    href={app.cvLink}
+                    className="link text-blue-600 underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     View CV
                   </a>
                 </td>
+                <td>
+                  {app.status === 'accepted' ? (
+                    <span className="badge badge-success">Accepted</span>
+                  ) : app.status === 'rejected' ? (
+                    <span className="badge badge-error">Rejected</span>
+                  ) : (
+                    <span className="badge badge-warning">Pending</span>
+                  )}
+                </td>
                 <td className="flex gap-2">
-                  <button onClick={() => handleAccept(app.email)} className="btn btn-success btn-xs">Accept</button>
-                  <button onClick={() => handleReject(app.email)} className="btn btn-error btn-xs">Reject</button>
+                  <button
+                    onClick={() => handleAccept(app.email)}
+                    className="btn btn-success btn-xs"
+                    disabled={app.status !== 'pending'}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleReject(app.email)}
+                    className="btn btn-error btn-xs"
+                    disabled={app.status !== 'pending'}
+                  >
+                    Reject
+                  </button>
                 </td>
               </tr>
             ))}

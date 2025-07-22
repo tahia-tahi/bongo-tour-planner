@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../Provider/AuthContext';
 
 const JoinAsTourGuide = () => {
+  const { user } = useContext(AuthContext);
   const [form, setForm] = useState({
+    name: '',
+    email: '',
+    photo: '',
     title: '',
     reason: '',
     cvLink: ''
   });
   const [successModal, setSuccessModal] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // 🚨 disable button after submit
+
+  useEffect(() => {
+    if (user) {
+      setForm(prev => ({
+        ...prev,
+        name: user.displayName || '',
+        email: user.email || '',
+        photo: user.photoURL || ''
+      }));
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,10 +44,12 @@ const JoinAsTourGuide = () => {
       if (res.ok) {
         toast.success("Application submitted");
         setSuccessModal(true);
+        setSubmitted(true); // ✅ disable the button after successful submit
       } else {
         toast.error("Failed to apply");
       }
     } catch (err) {
+      console.log(err);
       toast.error("Error occurred");
     }
   };
@@ -40,12 +59,33 @@ const JoinAsTourGuide = () => {
       <h2 className="text-2xl font-bold mb-4">Apply to Become a Tour Guide</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
+          name="name"
+          className="input input-bordered w-full"
+          placeholder="Your Name"
+          value={form.name}
+          disabled
+        />
+        <input
+          name="email"
+          type="email"
+          className="input input-bordered w-full"
+          placeholder="Your Email"
+          value={form.email}
+          disabled
+        />
+        {form.photo && (
+          <div className="w-16 h-16 rounded-full overflow-hidden ">
+            <img src={form.photo} alt="User" className="w-full h-full object-cover" />
+          </div>
+        )}
+        <input
           name="title"
           className="input input-bordered w-full"
           placeholder="Application Title"
           value={form.title}
           onChange={handleChange}
           required
+          disabled={submitted}
         />
         <textarea
           name="reason"
@@ -55,6 +95,7 @@ const JoinAsTourGuide = () => {
           value={form.reason}
           onChange={handleChange}
           required
+          disabled={submitted}
         ></textarea>
         <input
           name="cvLink"
@@ -64,8 +105,15 @@ const JoinAsTourGuide = () => {
           value={form.cvLink}
           onChange={handleChange}
           required
+          disabled={submitted}
         />
-        <button className="btn btn-primary w-full" type="submit">Submit Application</button>
+        <button
+          className="btn btn-primary w-full"
+          type="submit"
+          disabled={submitted}
+        >
+          {submitted ? "Application Submitted" : "Submit Application"}
+        </button>
       </form>
 
       {successModal && (

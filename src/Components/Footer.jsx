@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import TourLogo from './TourLogo';
 
 const Footer = () => {

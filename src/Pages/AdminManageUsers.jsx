@@ -20,11 +20,11 @@ const AdminManageUsers = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const usersPerPage = 10;
 
-  // Fetch users with optional search & role filter
+  // Fetch users from server
   const fetchUsers = async (search = '', role = '', page = 1) => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/users', {
+      const res = await axios.get('http://localhost:3000/api/users', {
         params: {
           search,
           role,
@@ -32,7 +32,6 @@ const AdminManageUsers = () => {
           limit: usersPerPage
         }
       });
-
       setUsers(res.data.users);
       setTotalUsers(res.data.total);
     } catch (err) {
@@ -49,19 +48,37 @@ const AdminManageUsers = () => {
 
   const handleSearchChange = debounce((text) => {
     setSearchText(text);
-    setCurrentPage(1); // Reset to first page
+    setCurrentPage(1);
     fetchUsers(text, roleFilter.value, 1);
   }, 500);
 
   const handleRoleChange = (selectedOption) => {
     setRoleFilter(selectedOption);
-    setCurrentPage(1); // Reset to first page
+    setCurrentPage(1);
     fetchUsers(searchText, selectedOption.value, 1);
   };
 
   const handlePageChange = (pageNum) => {
     setCurrentPage(pageNum);
     fetchUsers(searchText, roleFilter.value, pageNum);
+  };
+
+  const promoteToAdmin = async (email) => {
+    try {
+      const res = await axios.patch(`http://localhost:3000/api/users/promote/${email}`, {
+        role: 'admin'
+      });
+
+      if (res.data.modifiedCount > 0) {
+        toast.success('User promoted to admin!');
+        fetchUsers(searchText, roleFilter.value, currentPage);
+      } else {
+        toast.error('Failed to promote user');
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong');
+    }
   };
 
   const totalPages = Math.ceil(totalUsers / usersPerPage);
@@ -99,6 +116,7 @@ const AdminManageUsers = () => {
                 <th>Email</th>
                 <th>Photo</th>
                 <th>Role</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -109,18 +127,38 @@ const AdminManageUsers = () => {
                   <td>{user.email}</td>
                   <td>
                     {user.photo ? (
-                      <img src={user.photo} alt="user" className="w-12 h-12 rounded-full" />
+                      <img
+                        src={user.photo}
+                        alt="user"
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
                     ) : (
                       'N/A'
                     )}
                   </td>
-                  <td>{user.role}</td>
+                  <td>
+                    {user.role === 'admin' ? (
+                      <span className="badge badge-success">Admin</span>
+                    ) : (
+                      user.role
+                    )}
+                  </td>
+                  <td>
+                    {user.role !== 'admin' && (
+                      <button
+                        onClick={() => promoteToAdmin(user.email)}
+                        className="btn btn-xs btn-success"
+                      >
+                        Make Admin
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {/* Pagination Footer */}
+          {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-4 flex justify-center gap-2">
               {Array.from({ length: totalPages }, (_, i) => (

@@ -21,6 +21,12 @@ import AdminAddStories from '../Pages/AdminAddStories';
 import AdminManageStories from '../Pages/AdminManageStories';
 import AdminAddPackage from '../Pages/AdminAddPackage';
 import AdminManageCandidates from '../Pages/AdminManageCandidates';
+import TourGuideDasboard from '../Layout/TourGuideDasboard';
+import GuideManageProfile from '../Pages/GuideManageProfile';
+import GuideAddStories from '../Pages/GuideAddStories';
+import GuideAssignedTour from '../Pages/GuideAssignedTour';
+import GuideManageStories from '../Pages/GuideManageStories';
+import AdminManageUsers from '../Pages/AdminManageUsers';
 
 export const router = createBrowserRouter([
 
@@ -133,7 +139,36 @@ export const router = createBrowserRouter([
                         path:'/admin-dashboard/admin-manage-profile',
                         element:<AdminManageProfile></AdminManageProfile>
                     },
+                    {
+                        path:'/admin-dashboard/admin-manage-users',
+                        element:<AdminManageUsers></AdminManageUsers>
+                    },
                 ]
+            },
+            {
+                path:'/guide-dashboard',
+                element:<TourGuideDasboard></TourGuideDasboard>,
+                children:[
+                    {
+                        path:'/guide-dashboard/guide-manage-profile',
+                        element:<GuideManageProfile></GuideManageProfile>
+                    },
+                    {
+                        path:'/guide-dashboard/guide-add-stories',
+                        element:<GuideAddStories></GuideAddStories>
+                    },
+                    {
+                        path:'/guide-dashboard/assigned-tour',
+                        element:<GuideAssignedTour></GuideAssignedTour>
+                    },
+
+                    {
+                        path:'/guide-dashboard/managed-stories',
+                        element:<GuideManageStories></GuideManageStories>
+                    }
+                ]
+
+
             }
 
         ]

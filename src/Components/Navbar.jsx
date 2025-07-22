@@ -1,23 +1,41 @@
-import React, { useContext, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router'; 
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdArrowDropDown } from 'react-icons/md';
 import TourLogo from './TourLogo';
 import { AuthContext } from '../Provider/AuthContext';
+import axios from 'axios';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
-const {user, logOut} = useContext(AuthContext)
-const navigate = useNavigate()
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.email) {
+      axios
+        .get(`http://localhost:3000/api/users/role/${user.email}`)
+        .then((res) => {
+          setUserRole(res.data.role);
+        })
+        .catch((err) => {
+          console.error('Failed to fetch role:', err);
+        });
+    }
+  }, [user]);
 
   const handleLogout = () => {
-    logOut()
-    navigate('/')
+    logOut();
+    navigate('/');
+  };
 
-    console.log('Logout clicked');
-    // Your logout function here
+  const getDashboardRoute = () => {
+    if (userRole === 'admin') return '/admin-dashboard';
+    if (userRole === 'tour_guide') return '/guide-dashboard';
+    return '/tourist-dashboard';
   };
 
   return (
@@ -35,7 +53,6 @@ const navigate = useNavigate()
           <NavLink to="/community" className="hover:text-secondary">Community</NavLink>
           <NavLink to="/allTrips" className="hover:text-secondary">Trips</NavLink>
 
-          {/* Authenticated or not */}
           {!user ? (
             <>
               <NavLink to="/auth/login" className="hover:text-secondary">Log In</NavLink>
@@ -58,11 +75,11 @@ const navigate = useNavigate()
               {/* Dropdown */}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-48 p-3 z-50">
-                  <p className="font-semibold">{user.name}</p>
+                  <p className="font-semibold">{user.displayName || 'User'}</p>
                   <p className="text-sm mb-2">{user.email}</p>
-                  
+
                   <hr />
-                  <NavLink to="/tourist-dashboard" className="block mt-2 hover:text-primary">Dashboard</NavLink>
+                  <NavLink to={getDashboardRoute()} className="block mt-2 hover:text-primary">Dashboard</NavLink>
                   <NavLink to="/announcements" className="block mt-1 hover:text-primary">Offer Announcements</NavLink>
                   <button onClick={handleLogout} className="mt-3 w-full text-left hover:text-red-600">Log Out</button>
                 </div>
@@ -85,7 +102,7 @@ const navigate = useNavigate()
           <NavLink to="/" className="block">Home</NavLink>
           <NavLink to="/about" className="block">About Us</NavLink>
           <NavLink to="/community" className="block">Community</NavLink>
-          <NavLink to="/trips" className="block">Trips</NavLink>
+          <NavLink to="/allTrips" className="block">Trips</NavLink>
 
           {!user ? (
             <>
@@ -95,9 +112,9 @@ const navigate = useNavigate()
           ) : (
             <div>
               <hr className="my-2" />
-              <p>{user.name}</p>
+              <p>{user.displayName || 'User'}</p>
               <p className="text-sm">{user.email}</p>
-              <NavLink to="/dashboard" className="block mt-2">Dashboard</NavLink>
+              <NavLink to={getDashboardRoute()} className="block mt-2">Dashboard</NavLink>
               <NavLink to="/announcements" className="block">Offer Announcements</NavLink>
               <button onClick={handleLogout} className="block mt-2 text-red-400">Log Out</button>
             </div>
