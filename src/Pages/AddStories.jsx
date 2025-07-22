@@ -44,6 +44,7 @@ const AddStories = () => {
         toast.error("Failed to add story");
       }
     } catch (err) {
+      console.log(err);
       toast.error("Something went wrong");
     }
   };

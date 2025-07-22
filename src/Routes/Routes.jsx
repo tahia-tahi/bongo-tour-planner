@@ -27,6 +27,7 @@ import GuideAddStories from '../Pages/GuideAddStories';
 import GuideAssignedTour from '../Pages/GuideAssignedTour';
 import GuideManageStories from '../Pages/GuideManageStories';
 import AdminManageUsers from '../Pages/AdminManageUsers';
+import About from '../Pages/about';
 
 export const router = createBrowserRouter([
 
@@ -76,6 +77,11 @@ export const router = createBrowserRouter([
                 path: '/community',
                 element: <Community></Community>,
                 loader: () => fetch('http://localhost:3000/api/stories')
+            },
+
+            {
+                path:'/about',
+                element:<About></About>
             },
 
             {

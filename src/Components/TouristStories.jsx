@@ -27,12 +27,14 @@ const TouristStories = () => {
     <section className="w-11/12 mx-auto my-10">
       <h2 className="text-3xl font-bold mb-6 text-center">Tourist Stories</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {stories.map((story, idx) => (
+        {stories?.map((story, idx) => (
           <div key={idx} className="bg-white shadow rounded p-4">
             <img src={story.image} alt={story.title} className="w-full h-48 object-cover rounded" />
             <h3 className="text-xl font-semibold mt-3">{story.title}</h3>
             <p className="text-sm text-gray-500">By {story.author} on {story.date}</p>
-            <p className="mt-2 text-gray-700">{story.description.slice(0, 100)}...</p>
+<p className="mt-2 text-gray-700">
+  {(story.description ? story.description.slice(0, 100) : 'No description available')}...
+</p>
 
             <div className="mt-4 flex justify-between items-center">
               <FacebookShareButton
