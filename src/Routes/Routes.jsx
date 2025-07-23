@@ -28,6 +28,7 @@ import GuideAssignedTour from '../Pages/GuideAssignedTour';
 import GuideManageStories from '../Pages/GuideManageStories';
 import AdminManageUsers from '../Pages/AdminManageUsers';
 import About from '../Pages/about';
+import UpdateInfo from '../Pages/UpdateInfo';
 
 export const router = createBrowserRouter([
 
@@ -175,6 +176,10 @@ export const router = createBrowserRouter([
                 ]
 
 
+            },
+            {
+                path:'/update-info',
+                element:<UpdateInfo></UpdateInfo>
             }
 
         ]

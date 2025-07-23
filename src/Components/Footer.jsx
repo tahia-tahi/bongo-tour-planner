@@ -1,5 +1,9 @@
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa';
+import { 
+  FaTwitter, 
+  FaGithub, 
+  FaLinkedin 
+} from 'react-icons/fa';
 import { Link } from 'react-router';
 import TourLogo from './TourLogo';
 
@@ -7,12 +11,11 @@ const Footer = () => {
   return (
     <footer className="bg-base-200 text-base-content py-10 mt-10 border-t border-gray-300">
       <div className="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        
+
         {/* Logo & Description */}
         <div>
           <div className="flex items-center gap-2 mb-3">
             <TourLogo />
-            <h1 className="text-xl font-bold">Explore BD</h1>
           </div>
           <p className="text-sm text-gray-500">
             Discover the beauty, culture, and cuisine of Bangladesh. Your adventure starts here!
@@ -48,39 +51,30 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Social Media */}
-        <div>
-          <h3 className="footer-title font-semibold mb-2">Follow Us</h3>
-          <div className="flex gap-4 mt-2 text-xl">
+        {/* Developer Links */}
+        <div className="mt-6">
+          <h3 className="footer-title font-semibold mb-2">Developer</h3>
+          <div className="flex gap-4 text-xl">
             <a
-              href="https://facebook.com"
+              href="https://github.com/tahia-tahi"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Facebook"
+              aria-label="GitHub"
               className="hover:text-primary"
             >
-              <FaFacebookF />
+              <FaGithub />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://linkedin.com/in/kazi-tahia-idris"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
+              aria-label="LinkedIn"
               className="hover:text-primary"
             >
-              <FaInstagram />
+              <FaLinkedin />
             </a>
             <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-              className="hover:text-primary"
-            >
-              <FaYoutube />
-            </a>
-            <a
-              href="https://twitter.com"
+              href="https://twitter.com/your-username"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"
@@ -90,6 +84,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
+
       </div>
 
       {/* Bottom Line */}

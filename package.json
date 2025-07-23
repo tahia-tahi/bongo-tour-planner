@@ -17,6 +17,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.0",
     "firebase": "^11.10.0",
+    "framer-motion": "^12.23.6",
     "lodash.debounce": "^4.0.8",
     "react": "^19.1.0",
     "react-confetti": "^6.4.0",

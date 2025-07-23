@@ -17,6 +17,7 @@ const TouristStories = () => {
   }, []);
 
   const handleShare = (story) => {
+    console.log(story);
     if (!user) {
       navigate('/auth/login');
     }

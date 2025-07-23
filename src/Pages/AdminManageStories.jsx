@@ -12,7 +12,7 @@ const AdminManageStories = () => {
       const data = await res.json();
       setStories(data);
     } catch (err) {
-      toast.error('Failed to fetch stories');
+      toast.error('Failed to fetch stories',err);
     } finally {
       setLoading(false);
     }
@@ -34,7 +34,7 @@ const AdminManageStories = () => {
         toast.error('Failed to delete story');
       }
     } catch (err) {
-      toast.error('Something went wrong');
+      toast.error('Something went wrong',err);
     }
   };
 

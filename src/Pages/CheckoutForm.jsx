@@ -54,7 +54,7 @@ const CheckoutForm = ({ booking, navigate }) => {
       });
 
       toast.success('Payment successful!');
-      navigate('/my-bookings');
+      navigate('/tourist-dashboard/my-bookings');
     }
   };
 

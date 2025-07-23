@@ -34,9 +34,11 @@ const AuthProvider = ({ children }) => {
         return updateProfile(auth.currentUser, updatedData)
     }
 
-    const logOut = () => {
-        return signOut(auth)
-    }
+const logOut = () => {
+  localStorage.removeItem('access-token'); // 🔐 Remove token
+  return signOut(auth);
+};
+
 
 
       useEffect(() => {

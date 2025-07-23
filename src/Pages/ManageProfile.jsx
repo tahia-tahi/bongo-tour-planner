@@ -18,19 +18,41 @@ const ManageProfile = () => {
   };
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simulate server update or call actual update endpoint
-    // Example only - in real apps update Firebase or backend
-    toast.success("Profile updated successfully!");
-    setIsModalOpen(false);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${user.email}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: user.email,
+          photo: formData.photoURL,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.modifiedCount || data.upsertedCount) {
+        toast.success('Profile updated successfully!');
+      } else {
+        toast('No changes were made.');
+      }
+
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Update failed:', error);
+      toast.error('Failed to update profile');
+    }
   };
 
   return (
@@ -86,6 +108,26 @@ const ManageProfile = () => {
                   value={formData.photoURL}
                   onChange={handleChange}
                   className="input input-bordered w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium">Email</label>
+                <input
+                  type="email"
+                  value={user?.email || ''}
+                  disabled
+                  className="input input-bordered w-full bg-gray-100"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium">Role</label>
+                <input
+                  type="text"
+                  value={user?.role || 'Tourist'}
+                  disabled
+                  className="input input-bordered w-full bg-gray-100"
                 />
               </div>
 
