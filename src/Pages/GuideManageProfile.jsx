@@ -32,6 +32,9 @@ const GuideManageProfile = () => {
       body: JSON.stringify(updatedProfile)
     });
 
+    const data = await res.json();
+    console.log('PUT response:', data);
+
     if (res.ok) {
       toast.success("Profile updated successfully");
       setProfile(updatedProfile);
