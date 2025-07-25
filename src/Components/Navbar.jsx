@@ -17,7 +17,7 @@ const Navbar = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/api/users/role/${user.email}`)
+        .get(`https://bongo-tour-server.vercel.app/api/users/role/${user.email}`)
         .then((res) => {
           setUserRole(res.data.role);
         })

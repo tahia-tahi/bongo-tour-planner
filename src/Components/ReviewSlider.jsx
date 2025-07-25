@@ -11,7 +11,7 @@ const ReviewSlider = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/reviews')
+    axios.get('https://bongo-tour-server.vercel.app/api/reviews')
       .then(res => setReviews(res.data))
       .catch(err => console.error('Failed to fetch reviews:', err));
   }, []);

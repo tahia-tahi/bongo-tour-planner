@@ -50,7 +50,7 @@ const handleUpdate = async (e) => {
     email: user?.email, // very important to include
   };
 
-  const res = await fetch(`http://localhost:3000/api/users/${user.email}`, {
+  const res = await fetch(`https://bongo-tour-server.vercel.app/api/users/${user.email}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

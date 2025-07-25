@@ -35,7 +35,7 @@ const JoinAsTourGuide = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:3000/api/apply-guide', {
+      const res = await fetch('https://bongo-tour-server.vercel.app/api/apply-guide', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)

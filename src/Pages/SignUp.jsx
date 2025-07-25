@@ -24,7 +24,7 @@ const onSubmit = data => {
         })
         .then(async () => {
             // ✅ Save user to MongoDB with role
-            await fetch(`http://localhost:3000/api/users/${data.email}`, {
+            await fetch(`https://bongo-tour-server.vercel.app/api/users/${data.email}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

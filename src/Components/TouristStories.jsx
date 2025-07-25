@@ -1,63 +1,68 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { FacebookShareButton } from 'react-share';
-import { useNavigate } from 'react-router';
-import { AuthContext } from '../Provider/AuthContext';
-import useAxiosSecure from '../Hooks/useAxiosSecure';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const TouristStories = () => {
   const [stories, setStories] = useState([]);
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const axios = useAxiosSecure()
 
   useEffect(() => {
-    axios.get('/api/stories/random')
-      .then(res => setStories(res.data))
-      .catch(err => console.error(err));
+    fetch('https://bongo-tour-server.vercel.app/api/stories')
+      .then(res => res.json())
+      .then(data => setStories(data))
+      .catch(err => console.error('Failed to fetch stories:', err));
   }, []);
 
-  const handleShare = (story) => {
-    console.log(story);
-    if (!user) {
-      navigate('/auth/login');
-    }
-    // share handled by FacebookShareButton
+  const getStoryImage = (story) => {
+    if (story.image) return story.image;
+    if (Array.isArray(story.images) && story.images.length > 0) return story.images[0];
+    return 'https://via.placeholder.com/400x200?text=No+Image+Available';
   };
 
   return (
-    <section className="w-11/12 mx-auto my-10">
-      <h2 className="text-3xl font-bold mb-6 text-center">Tourist Stories</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {stories?.map((story, idx) => (
-          <div key={idx} className="bg-white shadow rounded p-4">
-            <img src={story.image} alt={story.title} className="w-full h-48 object-cover rounded" />
-            <h3 className="text-xl font-semibold mt-3">{story.title}</h3>
-            <p className="text-sm text-gray-500">By {story.author} on {story.date}</p>
-<p className="mt-2 text-gray-700">
-  {(story.description ? story.description.slice(0, 100) : 'No description available')}...
-</p>
+    <div className="py-12 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 text-center">
+          <h2 className="text-3xl font-extrabold text-gray-900">Tourist Stories</h2>
+          <p className="mt-2 text-lg text-gray-600">
+            Discover real experiences shared by fellow travelers.
+          </p>
+        </div>
 
-            <div className="mt-4 flex justify-between items-center">
-              <FacebookShareButton
-                url={window.location.href}
-                quote={story.title}
-                onClick={() => handleShare(story)}
-                className="text-blue-600 hover:underline"
-              >
-                Share on Facebook
-              </FacebookShareButton>
+        {stories.length === 0 ? (
+          <p className="text-center text-gray-500">No stories available right now.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {stories
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 4)
+              .map((story) => (
+                <div
+                  key={story._id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+                >
+                  <img
+                    src={getStoryImage(story)}
+                    alt={story.title || 'Tourist Story'}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-5">
+                    <h3 className="text-xl font-semibold text-gray-800">{story.title}</h3>
+                    <p className="mt-2 text-gray-600">
+                      {story.description?.slice(0, 100)}...
+                    </p>
+                    <Link
+                      to={`/stories/${story._id}`}
+                      className="inline-block mt-4 text-indigo-600 hover:underline"
+                    >
+                      Read Full Story →
+                    </Link>
+                  </div>
+                </div>
+              ))}
 
-              <button
-                onClick={() => navigate('/stories')}
-                className="btn btn-sm btn-primary"
-              >
-                All Stories
-              </button>
-            </div>
           </div>
-        ))}
+        )}
       </div>
-    </section>
+    </div>
   );
 };
 

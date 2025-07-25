@@ -65,7 +65,7 @@ const AdminAddPackage = () => {
         rating: parseFloat(form.rating)
       };
 
-      const res = await axios.post('http://localhost:3000/api/packages', newPackage);
+      const res = await axios.post('https://bongo-tour-server.vercel.app/api/packages', newPackage);
       if (res.data.insertedId || res.data.acknowledged) {
         toast.success('Package added successfully');
         // Reset form

@@ -8,7 +8,7 @@ const AdminManageCandidates = () => {
 
   const fetchCandidates = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/guide-applications');
+      const res = await axios.get('https://bongo-tour-server.vercel.app/api/guide-applications');
       setCandidates(res.data);
     } catch (err) {
       console.log(err);
@@ -20,7 +20,7 @@ const AdminManageCandidates = () => {
 
   const handleAccept = async (email) => {
     try {
-      await axios.patch(`http://localhost:3000/api/guide-applications/accept/${email}`);
+      await axios.patch(`https://bongo-tour-server.vercel.app/api/guide-applications/accept/${email}`);
       toast.success('User promoted to Tour Guide');
       fetchCandidates();
     } catch {
@@ -33,7 +33,7 @@ const AdminManageCandidates = () => {
     if (!confirm) return;
 
     try {
-      await axios.patch(`http://localhost:3000/api/guide-applications/reject/${email}`);
+      await axios.patch(`https://bongo-tour-server.vercel.app/api/guide-applications/reject/${email}`);
       toast.success('Application rejected');
       fetchCandidates();
     } catch {

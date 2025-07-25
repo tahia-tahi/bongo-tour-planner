@@ -24,7 +24,7 @@ const AdminManageUsers = () => {
   const fetchUsers = async (search = '', role = '', page = 1) => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:3000/api/users', {
+      const res = await axios.get('https://bongo-tour-server.vercel.app/api/users', {
         params: {
           search,
           role,
@@ -65,7 +65,7 @@ const AdminManageUsers = () => {
 
   const promoteToAdmin = async (email) => {
     try {
-      const res = await axios.patch(`http://localhost:3000/api/users/promote/${email}`, {
+      const res = await axios.patch(`https://bongo-tour-server.vercel.app/api/users/promote/${email}`, {
         role: 'admin'
       });
 

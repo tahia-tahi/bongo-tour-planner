@@ -21,7 +21,7 @@ const BookingForm = ({ packageName, price, }) => {
 
   // Fetch tour guides on component mount
   useEffect(() => {
-    fetch('http://localhost:3000/api/guides/random')
+    fetch('https://bongo-tour-server.vercel.app/api/guides/random')
       .then((res) => res.json())
       .then((data) => setTourGuides(data))
       .catch((err) => console.error('Failed to load tour guides:', err));
@@ -51,7 +51,7 @@ const BookingForm = ({ packageName, price, }) => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/api/bookings', {
+      const res = await fetch('https://bongo-tour-server.vercel.app/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingData),

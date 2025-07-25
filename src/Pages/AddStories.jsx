@@ -32,7 +32,7 @@ const AddStories = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/api/stories', {
+      const res = await fetch('https://bongo-tour-server.vercel.app/api/stories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(story)

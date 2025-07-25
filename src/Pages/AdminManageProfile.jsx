@@ -20,11 +20,11 @@ const AdminManageProfile = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    axios.get('http://localhost:3000/api/admin/stats')
+    axios.get('https://bongo-tour-server.vercel.app/api/admin/stats')
       .then(res => setStats(res.data))
       .catch(err => console.error('Stats fetch failed:', err));
 
-    axios.get(`http://localhost:3000/api/users-by-email/${encodeURIComponent(user.email)}`)
+    axios.get(`https://bongo-tour-server.vercel.app/api/users-by-email/${encodeURIComponent(user.email)}`)
       .then(res => {
         setAdminInfo(res.data);
         setFormData({ name: res.data.name, photo: res.data.photo });
@@ -42,7 +42,7 @@ const AdminManageProfile = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/users/${user.email}`, {
+      await axios.put(`https://bongo-tour-server.vercel.app/api/users/${user.email}`, {
         name: formData.name,
         photo: formData.photo,
       });

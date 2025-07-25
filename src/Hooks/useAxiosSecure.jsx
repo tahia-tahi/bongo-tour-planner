@@ -6,7 +6,7 @@ const useAxiosSecure = () => {
 
     const axiosSecure = axios.create(
        {
-        baseURL:'http://localhost:3000'
+        baseURL:'https://bongo-tour-server.vercel.app'
        }
     )
 

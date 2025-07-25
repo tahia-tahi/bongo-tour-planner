@@ -9,7 +9,7 @@ const GuideManageProfile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/users`)
+    fetch(`https://bongo-tour-server.vercel.app/api/users`)
       .then(res => res.json())
       .then(data => {
         const matched = data.users.find(u => u.email === user?.email);
@@ -26,7 +26,7 @@ const GuideManageProfile = () => {
 
     const updatedProfile = { name, photo, email: profile.email, role: profile.role };
 
-    const res = await fetch(`http://localhost:3000/api/users/${profile.email}`, {
+    const res = await fetch(`https://bongo-tour-server.vercel.app/api/users/${profile.email}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedProfile)

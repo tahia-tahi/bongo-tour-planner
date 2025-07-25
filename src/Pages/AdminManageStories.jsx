@@ -8,7 +8,7 @@ const AdminManageStories = () => {
 
   const fetchStories = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/stories');
+      const res = await fetch('https://bongo-tour-server.vercel.app/api/stories');
       const data = await res.json();
       setStories(data);
     } catch (err) {
@@ -23,7 +23,7 @@ const AdminManageStories = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/stories/${id}`, {
+      const res = await fetch(`https://bongo-tour-server.vercel.app/api/stories/${id}`, {
         method: 'DELETE'
       });
 

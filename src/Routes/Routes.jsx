@@ -29,6 +29,7 @@ import GuideManageStories from '../Pages/GuideManageStories';
 import AdminManageUsers from '../Pages/AdminManageUsers';
 import About from '../Pages/about';
 import UpdateStories from '../Pages/UpdateStories';
+import PrivateRoute from '../Provider/PrivateRoute';
 
 export const router = createBrowserRouter([
 
@@ -59,41 +60,59 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/packages/:id',
-                element: <PackageDetails></PackageDetails>,
-                loader: ({ params }) => fetch(`http://localhost:3000/api/packages/${params.id}`)
+                element: <PrivateRoute>
+                    <PackageDetails></PackageDetails>
+
+                </PrivateRoute>,
+                loader: ({ params }) => fetch(`https://bongo-tour-server.vercel.app/api/packages/${params.id}`)
 
             },
             {
-                path: '/guides/:id',
-                element: <GuideDetails />,
-                loader: ({ params }) =>
-                    fetch(`http://localhost:3000/api/guides/${params.id}`)
-            },
+                path: "/guides/:id",
+                element: <PrivateRoute>
+
+                    <GuideDetails />
+                </PrivateRoute>,
+                loader: async ({ params }) => {
+                    const res = await fetch(`https://bongo-tour-server.vercel.app/api/guides/${params.id}`);
+                    if (!res.ok) throw new Error("Failed to load guide details");
+                    return res.json();
+                }
+            }
+
+            ,
             {
                 path: '/allTrips',
                 element: <AllTrips></AllTrips>,
-                loader: () => fetch('http://localhost:3000/api/packages')
+                loader: () => fetch('https://bongo-tour-server.vercel.app/api/packages')
             },
             {
                 path: '/community',
-                element: <Community></Community>,
-                loader: () => fetch('http://localhost:3000/api/stories')
+                element: <PrivateRoute>
+
+                    <Community></Community>
+                </PrivateRoute>,
+                loader: () => fetch('https://bongo-tour-server.vercel.app/api/stories')
             },
 
             {
-                path:'/about',
-                element:<About></About>
+                path: '/about',
+                element: <About></About>
             },
 
             {
                 path: '/payment/:bookingId',
-                element: <PaymentPage />,
+                element: <PrivateRoute>
+                    <PaymentPage />
+                </PrivateRoute>,
                 loader: ({ params }) =>
-                    fetch(`http://localhost:3000/api/bookings/${params.bookingId}`),
+                    fetch(`https://bongo-tour-server.vercel.app/api/bookings/${params.bookingId}`),
             },
             {
                 path: '/tourist-dashboard',
-                element: <TouristDashboard></TouristDashboard>,
+                element: <PrivateRoute>
+                    <TouristDashboard></TouristDashboard>
+                </PrivateRoute>,
                 children: [
                     {
                         path: '/tourist-dashboard/manage-profile',
@@ -118,68 +137,74 @@ export const router = createBrowserRouter([
                 ]
             },
             {
-                path:'/admin-dashboard',
-                element:<AdminDashboard></AdminDashboard>,
-                children:[
+                path: '/admin-dashboard',
+                element: <PrivateRoute>
+                    <AdminDashboard></AdminDashboard>
+                </PrivateRoute>,
+                children: [
                     {
-                        path:'/admin-dashboard/admin-manage-profile',
-                        element:<AdminManageProfile></AdminManageProfile>
+                        path: '/admin-dashboard/admin-manage-profile',
+                        element: <AdminManageProfile></AdminManageProfile>
                     },
-                   
+
                     {
-                        path:'/admin-dashboard/admin-add-stories',
-                        element:<AdminAddStories></AdminAddStories>
-                    },
-                    {
-                        path:'/admin-dashboard/admin-manage-stories',
-                        element:<AdminManageStories></AdminManageStories>
+                        path: '/admin-dashboard/admin-add-stories',
+                        element: <AdminAddStories></AdminAddStories>
                     },
                     {
-                        path:'/admin-dashboard/admin-add-package',
-                        element:<AdminAddPackage></AdminAddPackage>
+                        path: '/admin-dashboard/admin-manage-stories',
+                        element: <AdminManageStories></AdminManageStories>
                     },
                     {
-                        path:'/admin-dashboard/admin-manage-candidates',
-                        element:<AdminManageCandidates></AdminManageCandidates>
+                        path: '/admin-dashboard/admin-add-package',
+                        element: <AdminAddPackage></AdminAddPackage>
                     },
                     {
-                        path:'/admin-dashboard/admin-manage-profile',
-                        element:<AdminManageProfile></AdminManageProfile>
+                        path: '/admin-dashboard/admin-manage-candidates',
+                        element: <AdminManageCandidates></AdminManageCandidates>
                     },
                     {
-                        path:'/admin-dashboard/admin-manage-users',
-                        element:<AdminManageUsers></AdminManageUsers>
+                        path: '/admin-dashboard/admin-manage-profile',
+                        element: <AdminManageProfile></AdminManageProfile>
+                    },
+                    {
+                        path: '/admin-dashboard/admin-manage-users',
+                        element: <AdminManageUsers></AdminManageUsers>
                     },
                 ]
             },
             {
-                path:'/guide-dashboard',
-                element:<TourGuideDasboard></TourGuideDasboard>,
-                children:[
+                path: '/guide-dashboard',
+                element: <PrivateRoute>
+                    <TourGuideDasboard></TourGuideDasboard>
+                </PrivateRoute>,
+                children: [
                     {
-                        path:'/guide-dashboard/guide-manage-profile',
-                        element:<GuideManageProfile></GuideManageProfile>
+                        path: '/guide-dashboard/guide-manage-profile',
+                        element: <GuideManageProfile></GuideManageProfile>
                     },
                     {
-                        path:'/guide-dashboard/guide-add-stories',
-                        element:<GuideAddStories></GuideAddStories>
+                        path: '/guide-dashboard/guide-add-stories',
+                        element: <GuideAddStories></GuideAddStories>
                     },
                     {
-                        path:'/guide-dashboard/assigned-tour',
-                        element:<GuideAssignedTour></GuideAssignedTour>
+                        path: '/guide-dashboard/assigned-tour',
+                        element: <GuideAssignedTour></GuideAssignedTour>
                     },
 
                     {
-                        path:'/guide-dashboard/managed-stories',
-                        element:<GuideManageStories></GuideManageStories>
+                        path: '/guide-dashboard/managed-stories',
+                        element: <GuideManageStories></GuideManageStories>
                     }
                 ]
 
 
             },
             {
-                path:'/update-stories/:id',
-                element:<UpdateStories></UpdateStories>
+                path: '/update-stories/:id',
+                element: <PrivateRoute>
+                    <UpdateStories></UpdateStories>
+                </PrivateRoute>
             }
 
         ]

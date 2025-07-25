@@ -16,7 +16,7 @@ const images = [
   'https://i.ibb.co/XxMwCrry/sea.png',
   'https://i.ibb.co/zTXLBpxg/shatgombuj.png',
   'https://i.ibb.co/4wT5HFnB/shonshod.png',
-  'https://i.ibb.co/5hxLHQCQ/shorisha.png'
+  
 ];
 
 const BannerSlider = () => {

@@ -8,7 +8,7 @@ const CheckoutForm = ({ booking, navigate }) => {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3000/create-payment-intent', {
+    fetch('https://bongo-tour-server.vercel.app/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ price: booking.price }),
@@ -47,7 +47,7 @@ const CheckoutForm = ({ booking, navigate }) => {
 
     if (paymentIntent.status === 'succeeded') {
       // ✅ update booking
-      await fetch(`http://localhost:3000/api/bookings/${booking._id}/payment`, {
+      await fetch(`https://bongo-tour-server.vercel.app/api/bookings/${booking._id}/payment`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transactionId: paymentIntent.id }),

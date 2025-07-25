@@ -12,14 +12,14 @@ const TourSection = () => {
 
   // Load packages
   useEffect(() => {
-    fetch('http://localhost:3000/api/packages/random')
+    fetch('https://bongo-tour-server.vercel.app/api/packages/random')
       .then(res => res.json())
       .then(data => setPackages(data));
   }, []);
 
   // Load guides
   useEffect(() => {
-    fetch('http://localhost:3000/api/guides/random')
+    fetch('https://bongo-tour-server.vercel.app/api/guides/random')
       .then(res => res.json())
       .then(data => setGuides(data));
   }, []);
@@ -43,7 +43,7 @@ const TourSection = () => {
                 <h3 className="text-xl font-semibold mt-3">{pkg.title}</h3>
                 <p className="text-sm text-gray-500">{pkg.type} · {pkg.days} Days</p>
                 <p className="text-lg text-green-600 font-bold">৳ {pkg.price}</p>
-<Link to={`/packages/${pkg._id}`} className="btn btn-primary mt-3 w-full">View Package</Link>
+                <Link to={`/packages/${pkg._id}`} className="btn btn-primary mt-3 w-full">View Package</Link>
               </div>
             ))}
           </div>

@@ -34,7 +34,7 @@ const Community = () => {
  const handleLike = async (id) => {
   try {
     const alreadyLiked = liked[id];
-    const res = await fetch(`http://localhost:3000/api/stories/like/${id}`, {
+    const res = await fetch(`https://bongo-tour-server.vercel.app/api/stories/like/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
