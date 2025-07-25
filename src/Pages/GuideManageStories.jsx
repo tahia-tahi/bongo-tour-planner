@@ -80,7 +80,7 @@ const GuideManageStories = () => {
             <div className="flex gap-2">
               <button
                 className="btn btn-outline btn-sm"
-                onClick={() => navigate(`/update-story/${story._id}`)}
+                onClick={() => navigate(`/update-stories/${story._id}`)}
               >
                 Edit
               </button>

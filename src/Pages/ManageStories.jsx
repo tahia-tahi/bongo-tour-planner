@@ -87,7 +87,7 @@ const ManageStories = () => {
 
             <div className="flex gap-3">
               <button
-                onClick={() => navigate(`/update-story/${story._id}`)}
+                onClick={() => navigate(`/update-stories/${story._id}`)}
                 className="btn btn-sm btn-outline"
               >
                 Edit
