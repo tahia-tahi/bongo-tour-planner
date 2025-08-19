@@ -18,9 +18,9 @@ const TouristStories = () => {
   };
 
   return (
-    <div className="py-12 bg-gray-50">
+    <div className="py-20 mt-28 bg-gray-50">
       <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 text-center">
+        <div className="mb-10 text-center ">
           <h2 className="text-3xl font-extrabold text-gray-900">Tourist Stories</h2>
           <p className="mt-2 text-lg text-gray-600">
             Discover real experiences shared by fellow travelers.
@@ -51,7 +51,7 @@ const TouristStories = () => {
                     </p>
                     <Link
                       to={`/stories/${story._id}`}
-                      className="inline-block mt-4 font-bold text-primary hover:underline"
+                      className="inline-block mt-4 font-bold text-gray-950 hover:text-gray-700"
                     >
                       Read Full Story →
                     </Link>

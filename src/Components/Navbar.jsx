@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useNavigate, useLocation } from 'react-router';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdArrowDropDown } from 'react-icons/md';
 import TourLogo from './TourLogo';
@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation(); // 👈 detect current route
 
   useEffect(() => {
     if (user?.email) {
@@ -39,10 +40,15 @@ const Navbar = () => {
     return '/tourist-dashboard';
   };
 
-  // 🔥 Scroll listener for background
+  // 🔥 Scroll listener only for Home page
   useEffect(() => {
+    if (location.pathname !== "/") {
+      setIsScrolled(true); // always black on other pages
+      return;
+    }
+
     const handleScroll = () => {
-      const bannerHeight = 700; // same as BannerSlider h-[700px]
+      const bannerHeight = 700; 
       if (window.scrollY > bannerHeight) {
         setIsScrolled(true);
       } else {
@@ -52,21 +58,20 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location]);
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
-        isScrolled ? 'bg-black' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 
+        ${isScrolled ? 'bg-black' : 'bg-transparent'}`}
     >
       <div className="w-11/12 mx-auto flex items-center justify-between py-4 text-white">
-        {/* Logo + Site Name */}
+        {/* Logo */}
         <div className="flex items-center gap-2">
           <TourLogo />
         </div>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-6">
           <NavLink to="/" className="hover:text-secondary">Home</NavLink>
           <NavLink to="/about" className="hover:text-secondary">About Us</NavLink>

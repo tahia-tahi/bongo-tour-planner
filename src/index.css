@@ -16,3 +16,33 @@
 .font-urbanist {
   font-family: "Urbanist", sans-serif;
 }
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #000; /* black background */
+  padding: 10px 0;
+}
+
+.marquee {
+  display: inline-block;
+  animation: marquee 60s linear infinite; /* slower and smooth */
+}
+
+.marquee span {
+  display: inline-block;
+  padding-right: 100px; /* space between repeated content */
+  color: #d1d5db; /* gray text */
+}
+
+/* seamless scroll */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+

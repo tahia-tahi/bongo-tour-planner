@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from '../assets/Bong tour.png'
+import logo from '../assets/footer-Bong tour.png'
 import { Link } from 'react-router';
 
-const TourLogo = () => {
+const FooterLogo = () => {
     return (
         <div>
             <Link to={'/'}>
@@ -13,4 +13,4 @@ const TourLogo = () => {
     );
 };
 
-export default TourLogo;
+export default FooterLogo;

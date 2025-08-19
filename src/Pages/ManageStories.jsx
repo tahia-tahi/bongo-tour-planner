@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 
@@ -56,52 +56,64 @@ const ManageStories = () => {
     <div className="p-6">
       <h2 className="text-3xl font-bold mb-6">Manage My Stories</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {stories.map(story => (
-          <div key={story._id} className="bg-white shadow rounded p-4">
-            <h3 className="text-xl font-semibold mb-1">{story.title}</h3>
-            <p className="text-gray-700 text-sm mb-3">{story.text}</p>
+      {stories.length === 0 ? (
+        <div className="text-center mt-10">
+          <p className="text-xl mb-4">You have not created any stories yet.</p>
+          <Link
+            to="/tourist-dashboard/add-stories"
+            className="inline-block bg-gray-950 hover:bg-gray-600 text-white rounded-lg px-6 py-3"
+          >
+            Create a Story
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {stories.map(story => (
+            <div key={story._id} className="bg-white shadow rounded p-4">
+              <h3 className="text-xl font-semibold mb-1">{story.title}</h3>
+              <p className="text-gray-700 text-sm mb-3">{story.text}</p>
 
-            <div className="flex flex-wrap gap-3 mb-4">
-              {story.images?.length ? (
-                story.images.map((img, index) => (
-                  <div key={index} className="relative w-24 h-24">
-                    <img
-                      src={img}
-                      alt="story-img"
-                      className="w-full h-full object-cover rounded"
-                    />
-                    <button
-                      onClick={() => handleRemoveImage(story._id, img)}
-                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 text-xs"
-                      title="Remove Image"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-400 italic">No images</p>
-              )}
-            </div>
+              <div className="flex flex-wrap gap-3 mb-4">
+                {story.images?.length ? (
+                  story.images.map((img, index) => (
+                    <div key={index} className="relative w-24 h-24">
+                      <img
+                        src={img}
+                        alt="story-img"
+                        className="w-full h-full object-cover rounded"
+                      />
+                      <button
+                        onClick={() => handleRemoveImage(story._id, img)}
+                        className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 text-xs"
+                        title="Remove Image"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-400 italic">No images</p>
+                )}
+              </div>
 
-            <div className="flex gap-3">
-              <button
-                onClick={() => navigate(`/update-stories/${story._id}`)}
-                className="btn btn-sm btn-outline"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(story._id)}
-                className="btn btn-sm btn-error"
-              >
-                Delete
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => navigate(`/update-stories/${story._id}`)}
+                  className="btn btn-sm btn-outline"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(story._id)}
+                  className="btn btn-sm btn-error"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

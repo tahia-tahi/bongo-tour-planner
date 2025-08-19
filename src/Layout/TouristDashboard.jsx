@@ -5,7 +5,7 @@ import { FaUser, FaBook, FaPen, FaPlusCircle, FaSignInAlt } from 'react-icons/fa
 
 const TouristDashboard = () => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen mt-20">
       {/* Sidebar */}
       <div className="w-64 bg-gray-100 p-6 border-r">
         <h2 className="text-xl font-bold mb-4">Dashboard</h2>

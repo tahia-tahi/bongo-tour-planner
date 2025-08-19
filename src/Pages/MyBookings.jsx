@@ -3,6 +3,7 @@ import Confetti from 'react-confetti';
 import { AuthContext } from '../Provider/AuthContext';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router';
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
@@ -41,16 +42,28 @@ const MyBookings = () => {
         </>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {bookings.map((booking, idx) => (
-          <div key={idx} className="bg-white shadow-md rounded p-4">
-            <h3 className="text-lg font-semibold">{booking.packageName}</h3>
-            <p>Date: {booking.tourDate}</p>
-            <p>Price: ${booking.price}</p>
-            <p>Status: {booking.status}</p>
-          </div>
-        ))}
-      </div>
+      {bookings.length === 0 ? (
+        <div className="text-center mt-10">
+          <p className="text-xl mb-4">You have not purchased any package yet.</p>
+          <Link
+            to="/allTrips"
+            className="inline-block bg-gray-950 hover:bg-gray-600 text-white rounded-lg px-6 py-3"
+          >
+            Browse Trips
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {bookings.map((booking, idx) => (
+            <div key={idx} className="bg-white shadow-md rounded p-4">
+              <h3 className="text-lg font-semibold">{booking.packageName}</h3>
+              <p>Date: {booking.tourDate}</p>
+              <p>Price: ${booking.price}</p>
+              <p>Status: {booking.status}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

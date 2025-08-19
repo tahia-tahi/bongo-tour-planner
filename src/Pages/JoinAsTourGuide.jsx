@@ -108,7 +108,7 @@ const JoinAsTourGuide = () => {
           disabled={submitted}
         />
         <button
-          className="btn btn-primary w-full"
+          className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg w-full"
           type="submit"
           disabled={submitted}
         >

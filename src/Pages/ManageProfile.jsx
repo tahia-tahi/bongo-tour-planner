@@ -78,7 +78,7 @@ const handleUpdate = async (e) => {
 
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+    <div className=" mx-auto p-6 bg-white rounded shadow">
       <h1 className="text-3xl font-bold mb-6">Welcome, {user?.displayName || user?.name} 👋</h1>
 
       <div className="flex items-center gap-6 mb-6">
@@ -98,7 +98,7 @@ const handleUpdate = async (e) => {
       <div className="flex gap-4">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="btn btn-primary"
+          className="btn  bg-gray-950 hover:bg-gray-600 text-white rounded-lg"
         >
           Edit Profile
         </button>
@@ -173,7 +173,7 @@ const handleUpdate = async (e) => {
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn  bg-gray-950 hover:bg-gray-600 text-white rounded-lg"
                 >
                   Save Changes
                 </button>

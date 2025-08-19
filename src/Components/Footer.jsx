@@ -5,17 +5,17 @@ import {
   FaLinkedin 
 } from 'react-icons/fa';
 import { Link } from 'react-router';
-import TourLogo from './TourLogo';
+import FooterLogo from './FooterLogo';
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content py-10 mt-10 border-t border-gray-300">
+    <footer className="bg-base-200 text-base-content py-10 border-t border-gray-300">
       <div className="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
         {/* Logo & Description */}
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <TourLogo />
+            <FooterLogo></FooterLogo>
           </div>
           <p className="text-sm text-gray-500">
             Discover the beauty, culture, and cuisine of Bangladesh. Your adventure starts here!
