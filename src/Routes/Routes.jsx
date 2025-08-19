@@ -30,6 +30,7 @@ import AdminManageUsers from '../Pages/AdminManageUsers';
 import About from '../Pages/about';
 import UpdateStories from '../Pages/UpdateStories';
 import PrivateRoute from '../Provider/PrivateRoute';
+import ErrorPage from '../Pages/ErrorPage';
 
 export const router = createBrowserRouter([
 
@@ -86,6 +87,13 @@ export const router = createBrowserRouter([
                 element: <AllTrips></AllTrips>,
                 loader: () => fetch('https://bongo-tour-server.vercel.app/api/packages')
             },
+
+            {
+                path:'/*',
+                element:<ErrorPage></ErrorPage>
+            },
+
+
             {
                 path: '/community',
                 element: <PrivateRoute>

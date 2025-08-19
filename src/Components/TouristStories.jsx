@@ -19,7 +19,7 @@ const TouristStories = () => {
 
   return (
     <div className="py-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
           <h2 className="text-3xl font-extrabold text-gray-900">Tourist Stories</h2>
           <p className="mt-2 text-lg text-gray-600">
@@ -51,7 +51,7 @@ const TouristStories = () => {
                     </p>
                     <Link
                       to={`/stories/${story._id}`}
-                      className="inline-block mt-4 text-indigo-600 hover:underline"
+                      className="inline-block mt-4 font-bold text-primary hover:underline"
                     >
                       Read Full Story →
                     </Link>

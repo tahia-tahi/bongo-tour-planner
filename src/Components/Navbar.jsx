@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -38,9 +39,28 @@ const Navbar = () => {
     return '/tourist-dashboard';
   };
 
+  // 🔥 Scroll listener for background
+  useEffect(() => {
+    const handleScroll = () => {
+      const bannerHeight = 700; // same as BannerSlider h-[700px]
+      if (window.scrollY > bannerHeight) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="bg-primary text-white shadow">
-      <div className="w-11/12 mx-auto flex items-center justify-between py-4">
+    <div
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
+        isScrolled ? 'bg-black' : 'bg-transparent'
+      }`}
+    >
+      <div className="w-11/12 mx-auto flex items-center justify-between py-4 text-white">
         {/* Logo + Site Name */}
         <div className="flex items-center gap-2">
           <TourLogo />
@@ -72,12 +92,10 @@ const Navbar = () => {
                 <MdArrowDropDown size={24} />
               </div>
 
-              {/* Dropdown */}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-48 p-3 z-50">
                   <p className="font-semibold">{user.displayName || 'User'}</p>
                   <p className="text-sm mb-2">{user.email}</p>
-
                   <hr />
                   <NavLink to={getDashboardRoute()} className="block mt-2 hover:text-primary">Dashboard</NavLink>
                   <button onClick={handleLogout} className="mt-3 w-full text-left hover:text-red-600">Log Out</button>
@@ -97,12 +115,11 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-primary text-white px-6 pb-4 space-y-3">
+        <div className="lg:hidden bg-black/80 text-white px-6 pb-4 space-y-3">
           <NavLink to="/" className="block">Home</NavLink>
           <NavLink to="/about" className="block">About Us</NavLink>
           <NavLink to="/community" className="block">Community</NavLink>
           <NavLink to="/allTrips" className="block">Trips</NavLink>
-
           {!user ? (
             <>
               <NavLink to="/auth/login" className="block">Log In</NavLink>

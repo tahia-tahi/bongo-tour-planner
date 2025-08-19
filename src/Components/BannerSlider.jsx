@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
+
 const images = [
   'https://i.ibb.co/qLQC9MFF/bouddobihar.png',
   'https://i.ibb.co/bjKDH1Sj/bridge.png',
@@ -21,7 +22,7 @@ const images = [
 
 const BannerSlider = () => {
   return (
-    <div className="w-full h-[500px] relative z-0">
+    <div className="w-full h-[700px] relative z-0">
       <Swiper
         modules={[Autoplay, EffectFade, Pagination]}
         autoplay={{ delay: 3500 }}
@@ -31,29 +32,31 @@ const BannerSlider = () => {
         className="w-full h-full"
       >
         {images.map((img, idx) => (
-          <SwiperSlide key={idx}>
-            <div className="w-full h-full">
-              <div
-                className="w-full h-full bg-center bg-cover"
-                style={{ backgroundImage: `url(${img})` }}
-              >
-                {/* Overlay */}
-                <div className="w-full h-full bg-opacity-80 flex items-center justify-center">
-                  <div className="text-center text-white animate-fadeIn">
-                    <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">
-                      Discover Bangladesh
-                    </h2>
-                    <p className="mt-4 text-lg md:text-xl">
-                      Culture • Nature • Adventure
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
+<SwiperSlide key={idx}>
+  <div className="relative w-full h-full">
+    <div
+      className="w-full h-full bg-center bg-cover"
+      style={{ backgroundImage: `url(${img})` }}
+    />
+    {/* Overlay */}
+    <div className="bg-overlay"></div>
+    <div className="absolute inset-0 flex items-center justify-center text-white z-20">
+      <div className="text-center animate-fadeIn">
+        <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">
+          Discover Bangladesh
+        </h2>
+        <p className="mt-4 text-lg md:text-xl">
+          Culture • Nature • Adventure
+        </p>
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
         ))}
       </Swiper>
-    </div>
+      </div>
+
   );
 };
 

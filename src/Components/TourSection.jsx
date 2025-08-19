@@ -25,7 +25,7 @@ const TourSection = () => {
   }, []);
 
   return (
-    <div className="my-10 w-11/12 mx-auto">
+    <div className="my-10 w-11/12 mx-auto mt-30">
       <h2 className="text-3xl font-bold text-center mb-6 text-primary">Tourism & Travel Guide</h2>
 
       <Tabs>
@@ -43,7 +43,7 @@ const TourSection = () => {
                 <h3 className="text-xl font-semibold mt-3">{pkg.title}</h3>
                 <p className="text-sm text-gray-500">{pkg.type} · {pkg.days} Days</p>
                 <p className="text-lg text-green-600 font-bold">৳ {pkg.price}</p>
-                <Link to={`/packages/${pkg._id}`} className="btn btn-primary mt-3 w-full">View Package</Link>
+                <Link to={`/packages/${pkg._id}`} className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg">View Package</Link>
               </div>
             ))}
           </div>
@@ -59,7 +59,7 @@ const TourSection = () => {
                 <p className="text-sm text-gray-500 text-center">{guide.specialty}</p>
                 <p className="text-sm text-center text-gray-400">{guide.location} · {guide.experience} yrs exp</p>
                 <p className="text-center mt-1">⭐ {guide.rating}</p>
-                <Link to={`/guides/${guide._id}`} className="btn btn-outline btn-secondary mt-3 w-full">View Details</Link>
+                <Link to={`/guides/${guide._id}`} className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg mt-3 w-full">View Details</Link>
               </div>
             ))}
           </div>

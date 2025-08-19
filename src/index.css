@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tailwindcss";
 @plugin "daisyui";
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: linear-gradient(
+      90deg,
+      rgba(10, 12, 13, 0.9) 7%,
+      rgba(12, 23, 19, 0.39) 100%
+  );
+}
 
+.font-urbanist {
+  font-family: "Urbanist", sans-serif;
+}

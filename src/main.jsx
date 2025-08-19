@@ -10,8 +10,10 @@ import {  Toaster } from 'react-hot-toast'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      
+       <div className='font-urbanist'>
       <RouterProvider router={router}></RouterProvider>
+
+       </div>
      <Toaster></Toaster>
 
     </AuthProvider>
