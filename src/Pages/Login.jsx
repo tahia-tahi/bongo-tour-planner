@@ -48,9 +48,9 @@ const Login = () => {
 
   return (
     <div>
-      <div className="card bg-white w-full mx-auto my-20 max-w-sm shrink-0 shadow-2xl">
+      <div className="card bg-white w-full mx-auto my-20 max-w-sm shrink-0 shadow-2xl mt-28">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-          <h1 className="text-3xl text-center text-accent font-bold">Welcome Back!</h1>
+          <h1 className="text-3xl text-black text-center font-bold">Welcome Back!</h1>
           <fieldset className="fieldset space-y-3">
             {/* Name (Optional) */}
             
@@ -99,7 +99,7 @@ const Login = () => {
             </div>
 
             {/* Submit Button */}
-            <button type='submit' className="btn btn-primary hover:btn-secondary mt-4">Login</button>
+            <button type='submit' className="btn  bg-gray-950 hover:bg-gray-600 text-white rounded-lg mt-4">Login</button>
 
             <p className='text-center font-bold my-2 text-primary'>OR</p>
             <GoogleSignIn />

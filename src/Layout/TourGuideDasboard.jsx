@@ -14,16 +14,17 @@ const TourGuideDashboard = () => {
   return (
     <div className="flex min-h-screen mt-20">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-100 p-6 border-r">
-        <h2 className="text-xl font-bold mb-6">Tour Guide Panel</h2>
+      <aside className="w-64 bg-gray-950 p-6 border-r min-h-screen">
+        <h2 className="text-xl font-bold mb-6 text-white">Tour Guide Panel</h2>
         <ul className="space-y-3">
           {navItems.map(item => (
             <li key={item.path}>
               <Link
                 to={item.path}
-                className={`block p-2 rounded hover:bg-blue-100 ${
-                  pathname === item.path ? 'bg-blue-200 font-semibold' : ''
-                }`}
+                className={`block w-full p-2 rounded-lg ${pathname === item.path
+                    ? 'bg-gray-700 text-white font-semibold'
+                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                  }`}
               >
                 {item.name}
               </Link>
@@ -31,6 +32,7 @@ const TourGuideDashboard = () => {
           ))}
         </ul>
       </aside>
+
 
       {/* Main Content Area */}
       <main className="flex-1 p-6">

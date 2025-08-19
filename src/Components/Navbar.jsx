@@ -72,16 +72,16 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-6">
-          <NavLink to="/" className="hover:text-secondary">Home</NavLink>
-          <NavLink to="/about" className="hover:text-secondary">About Us</NavLink>
-          <NavLink to="/community" className="hover:text-secondary">Community</NavLink>
-          <NavLink to="/allTrips" className="hover:text-secondary">Trips</NavLink>
+        <div className="hidden lg:flex items-center gap-8">
+          <NavLink to="/" className="hover:bg-white hover:text-black py-2 px-4 rounded-lg">Home</NavLink>
+          <NavLink to="/about" className="hover:bg-white hover:text-black py-2 px-4 rounded-lg">About Us</NavLink>
+          <NavLink to="/community" className="hover:bg-white hover:text-black py-2 px-4 rounded-lg">Community</NavLink>
+          <NavLink to="/allTrips" className="hover:bg-white hover:text-black py-2 px-4 rounded-lg">Trips</NavLink>
 
           {!user ? (
             <>
-              <NavLink to="/auth/login" className="hover:text-secondary">Log In</NavLink>
-              <NavLink to="/auth/signup" className="hover:text-secondary">Sign Up</NavLink>
+              <NavLink to="/auth/login" className="hover:bg-white hover:text-black py-2 px-4 rounded-lg">Log In</NavLink>
+              <NavLink to="/auth/signup" className="hover:bg-white hover:text-black py-2 px-4 rounded-lg">Sign Up</NavLink>
             </>
           ) : (
             <div className="relative">

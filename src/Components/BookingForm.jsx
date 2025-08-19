@@ -164,7 +164,7 @@ const BookingForm = ({ packageName, price, }) => {
           {errors.selectedGuide && <p className="text-error text-sm">{errors.selectedGuide.message}</p>}
         </div>
 
-        <button type="submit" className="btn btn-primary w-full">
+        <button type="submit" className="btn  bg-gray-950 hover:bg-gray-600 text-white rounded-lg w-full">
           Book Now
         </button>
       </form>

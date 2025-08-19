@@ -117,7 +117,7 @@ const GuideAddStories = () => {
 
         <button
           type="submit"
-          className="btn btn-primary w-full"
+          className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg w-full"
           disabled={loading}
         >
           {loading ? 'Submitting...' : 'Submit Story'}

@@ -16,22 +16,23 @@ const AdminDashboard = () => {
             {/* Sidebar */}
             <aside className="w-64 bg-gray-100 p-5 border-r">
                 <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
-                <ul className="space-y-4">
-                    {menuItems.map(item => (
-                        <li key={item.to}>
-                            <NavLink
-                                to={item.to}
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? 'text-primary font-bold'
-                                        : 'text-gray-700 hover:text-primary'
-                                }
-                            >
-                                {item.label}
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
+<ul className="space-y-4">
+  {menuItems.map(item => (
+    <li key={item.to} className="w-full">
+      <NavLink
+        to={item.to}
+        className={({ isActive }) =>
+          `w-full block p-2 rounded-lg text-center ${
+            isActive ? 'bg-gray-300 text-black' : 'bg-black text-white'
+          }`
+        }
+      >
+        {item.label}
+      </NavLink>
+    </li>
+  ))}
+</ul>
+
             </aside>
 
             {/* Main Content */}

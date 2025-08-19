@@ -156,7 +156,7 @@ const AdminAddPackage = () => {
           <button type="button" className="btn btn-sm btn-outline mt-1" onClick={addTourPlan}>+ Add Day</button>
         </div>
 
-        <button className="btn btn-primary w-full" type="submit">Add Package</button>
+        <button className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg w-full" type="submit">Add Package</button>
       </form>
     </div>
   );

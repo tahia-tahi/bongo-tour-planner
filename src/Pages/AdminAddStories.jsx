@@ -102,7 +102,7 @@ const AdminAddStories = () => {
           </button>
         </div>
 
-        <button type="submit" className="btn btn-primary w-full">Submit Story</button>
+        <button type="submit" className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg w-full">Submit Story</button>
       </form>
     </div>
   );

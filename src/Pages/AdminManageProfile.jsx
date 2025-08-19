@@ -2,6 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../Provider/AuthContext';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, LineChart, Line, Legend
+} from 'recharts';
+
+const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#a4de6c'];
 
 const AdminManageProfile = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -15,6 +21,15 @@ const AdminManageProfile = () => {
   const [adminInfo, setAdminInfo] = useState(null);
   const [editModal, setEditModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', photo: '' });
+
+  // Simulated payments over last 5 months for line chart
+  const [paymentsOverTime, setPaymentsOverTime] = useState([
+    { month: 'Jan', payment: 12000 },
+    { month: 'Feb', payment: 15000 },
+    { month: 'Mar', payment: 18000 },
+    { month: 'Apr', payment: 10000 },
+    { month: 'May', payment: 20000 },
+  ]);
 
   // Fetch stats and admin info
   useEffect(() => {
@@ -64,34 +79,28 @@ const AdminManageProfile = () => {
 
   if (!adminInfo) return <p>Loading profile...</p>;
 
+  // Prepare chart data
+  const barData = [
+    { name: 'Payment', value: stats.totalPayment },
+    { name: 'Guides', value: stats.totalGuides },
+    { name: 'Packages', value: stats.totalPackages },
+    { name: 'Clients', value: stats.totalClients },
+    { name: 'Stories', value: stats.totalStories },
+  ];
+
+  const pieData = [
+    { name: 'Guides', value: stats.totalGuides },
+    { name: 'Clients', value: stats.totalClients },
+    { name: 'Packages', value: stats.totalPackages },
+    { name: 'Stories', value: stats.totalStories },
+  ];
+
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow">
+    <div className="mx-auto p-6 bg-white rounded shadow">
       <h2 className="text-3xl font-bold mb-6">Welcome, Admin!</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
-        <div className="p-4 bg-blue-100 rounded text-center">
-          <h4>Total Payment</h4>
-          <p>৳{stats.totalPayment.toFixed(2)}</p>
-        </div>
-        <div className="p-4 bg-green-100 rounded text-center">
-          <h4>Tour Guides</h4>
-          <p>{stats.totalGuides}</p>
-        </div>
-        <div className="p-4 bg-yellow-100 rounded text-center">
-          <h4>Packages</h4>
-          <p>{stats.totalPackages}</p>
-        </div>
-        <div className="p-4 bg-red-100 rounded text-center">
-          <h4>Clients</h4>
-          <p>{stats.totalClients}</p>
-        </div>
-        <div className="p-4 bg-purple-100 rounded text-center">
-          <h4>Stories</h4>
-          <p>{stats.totalStories}</p>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-6">
+      {/* Profile */}
+      <div className="flex items-center gap-6 mb-10">
         <img
           src={adminInfo.photo || 'https://i.ibb.co/yfM5vFZ/avatar.png'}
           alt="Admin"
@@ -102,11 +111,64 @@ const AdminManageProfile = () => {
           <p>{adminInfo.email}</p>
           <p className="capitalize badge badge-success">{adminInfo.role}</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setEditModal(true)}>
+        <button
+          className="btn bg-gray-950 hover:bg-gray-600 text-white rounded-lg"
+          onClick={() => setEditModal(true)}
+        >
           Edit Profile
         </button>
       </div>
 
+      {/* Bar Chart */}
+      <div className="mb-10">
+        <h3 className="text-xl font-semibold mb-4">Statistics Overview</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={barData}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="value" fill="#4B5563" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Pie Chart */}
+      <div className="mb-10">
+        <h3 className="text-xl font-semibold mb-4">Distribution</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={pieData}
+              dataKey="value"
+              nameKey="name"
+              outerRadius={100}
+              fill="#8884d8"
+              label
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Line Chart */}
+      <div>
+        <h3 className="text-xl font-semibold mb-4">Payments Over Time</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={paymentsOverTime}>
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="payment" stroke="#4B5563" strokeWidth={2} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Edit Modal */}
       {editModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow w-full max-w-md">

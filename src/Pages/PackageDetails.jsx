@@ -14,7 +14,7 @@ const PackageDetails = () => {
     <div className="w-full">
       
             {/* Optional: Thumbnail Gallery */}
-<div className="w-11/12 mx-auto py-10">
+<div className="w-11/12 mx-auto py-10 mt-28">
   <h3 className="text-xl font-semibold mb-4">Gallery</h3>
   
   <div className="grid grid-cols-2 gap-4">
@@ -58,11 +58,11 @@ const PackageDetails = () => {
       <div className="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 py-10">
         {/* Left Column */}
         <div className="lg:col-span-2">
-          <h2 className="text-3xl font-bold mb-4 text-primary">{title}</h2>
+          <h2 className="text-3xl font-bold mb-4 text-black">{title}</h2>
 
           <p className="text-gray-700 mb-6">{details}</p>
 
-          <h3 className="text-2xl font-semibold mb-3 text-secondary">Tour Plan</h3>
+          <h3 className="text-2xl font-semibold mb-3 text-white bg-black p-4 rounded-lg">Tour Plan</h3>
           <ul className="list-disc list-inside space-y-2">
             {tourPlan?.map((plan, index) => (
               <li key={index}>
